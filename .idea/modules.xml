@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/csjlb.iml" filepath="$PROJECT_DIR$/csjlb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-admin/csjlb-admin.iml" filepath="$PROJECT_DIR$/csjlb-admin/csjlb-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-api/csjlb-api.iml" filepath="$PROJECT_DIR$/csjlb-api/csjlb-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-cmsC/csjlb-cmsC.iml" filepath="$PROJECT_DIR$/csjlb-cmsC/csjlb-cmsC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-cmsS/csjlb-cmsS.iml" filepath="$PROJECT_DIR$/csjlb-cmsS/csjlb-cmsS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-common/csjlb-common.iml" filepath="$PROJECT_DIR$/csjlb-common/csjlb-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-framework/csjlb-framework.iml" filepath="$PROJECT_DIR$/csjlb-framework/csjlb-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-generator/csjlb-generator.iml" filepath="$PROJECT_DIR$/csjlb-generator/csjlb-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-quartz/csjlb-quartz.iml" filepath="$PROJECT_DIR$/csjlb-quartz/csjlb-quartz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csjlb-system/csjlb-system.iml" filepath="$PROJECT_DIR$/csjlb-system/csjlb-system.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('招聘列表')" />
+</head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								招聘/求职：0:招聘,1:求职：<input type="text" name="inviteType"/>
+							</li>
+
+							<li>
+								岗位名称：<input type="text" name="jobName"/>
+							</li>
+
+							<!--<li>-->
+								<!--岗位描述：<input type="text" name="jobIntroduce"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--招聘描述：<input type="text" name="inviteIntroduce"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--联系方式：<input type="text" name="contactWay"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--地区id：<input type="text" name="areaId"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--发布人id：<input type="text" name="publishUserId"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--发布人姓名：<input type="text" name="publishUserName"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--发布时间：<input type="text" name="publishTime"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--审核人id：<input type="text" name="checkUserId"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--审核人姓名：<input type="text" name="checkUserName"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--审核时间：<input type="text" name="checkTime"/>-->
+							<!--</li>-->
+
+							<li>
+								审核结果：0:未审核,1:审核未通过,2:审核通过：<input type="text" name="checkResult"/>
+							</li>
+
+							<!--<li>-->
+								<!--审核原因：<input type="text" name="checkMessage"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--是否显示-1:显示，0:不显示：<input type="text" name="isShow"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--浏览量：<input type="text" name="browseCount"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--备用1：<input type="text" name="other1"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--备用2：<input type="text" name="other2"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--备用3：<input type="text" name="other3"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--备用4：<input type="text" name="other4"/>-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--备用5：<input type="text" name="other5"/>-->
+							<!--</li>-->
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm" id="toolbar" role="group">
+				<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="cms:invite:add">-->
+					<!--<i class="fa fa-plus"></i> 添加-->
+				<!--</a>-->
+				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="cms:invite:edit">-->
+					<!--<i class="fa fa-edit"></i> 修改-->
+				<!--</a>-->
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="cms:invite:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cms:invite:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('cms:invite:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('cms:invite:remove')}]];
+        var prefix = ctx + "cms/invite";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "招聘",
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'inviteId', 
+					title : '招聘id',
+					visible: false
+				},
+				{
+					field : 'inviteType', 
+					title : '招聘/求职',
+					sortable: true,
+                    formatter : function (value,row,index) {
+                        if (value == 0){
+                            return '<span style="color:blue">招聘</span>';  // #6dd9c3;
+                        } else{
+                            return '<span style="color:green">求职</span>';
+                        }
+                    }
+				},
+				{
+					field : 'jobName', 
+					title : '岗位名称',
+					sortable: true
+				},
+				// {
+				// 	field : 'jobIntroduce',
+				// 	title : '岗位描述',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'inviteIntroduce',
+				// 	title : '招聘描述',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'contactWay',
+				// 	title : '联系方式',
+				// 	sortable: true
+				// },
+				{
+					field : 'areaId', 
+					title : '地区id',
+					sortable: true
+				},
+				{
+					field : 'publishUserId', 
+					title : '发布人id',
+					sortable: true
+				},
+				{
+					field : 'publishUserName', 
+					title : '发布人姓名',
+					sortable: true
+				},
+				{
+					field : 'publishTime', 
+					title : '发布时间',
+					sortable: true
+				},
+                    {
+                        field : 'isShow',
+                        title : '是否显示1:显示，0:不显示',
+                        sortable: true,
+                        formatter : function (value,row,index) {
+                            if (value == 0){
+                                return '不显示';
+                            } else if (value == 1){
+                                return '<span style="color:green">显示</span>';
+                            }
+                        }
+                    },
+				{
+					field : 'checkUserId', 
+					title : '审核人id',
+					sortable: true
+				},
+				{
+					field : 'checkUserName', 
+					title : '审核人姓名',
+					sortable: true
+				},
+				{
+					field : 'checkTime', 
+					title : '审核时间',
+					sortable: true
+				},
+				{
+					field : 'checkResult', 
+					title : '审核结果',
+					sortable: true,
+                    formatter : function (value,row,index) {
+                        if (value == 0){
+                            return '<span style="color:red">未审核</span>';
+                        } else if (value == 1){
+                            return '<span style="color:grey">审核未通过</span>';
+                        }else{
+                            return '<span style="color:green">审核通过</span>';
+                        }
+                    }
+				},
+				{
+					field : 'checkMessage', 
+					title : '审核原因',
+					sortable: true
+				},
+
+				// {
+				// 	field : 'browseCount',
+				// 	title : '浏览量',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'other1',
+				// 	title : '备用1',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'other2',
+				// 	title : '备用2',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'other3',
+				// 	title : '备用3',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'other4',
+				// 	title : '备用4',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'other5',
+				// 	title : '备用5',
+				// 	sortable: true
+				// },
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	// actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.inviteId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.inviteId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="show(\'' + row.inviteId + '\')"><i class="fa fa-caret-square-o-right"></i>查看</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + removeFlag + '" href="#" onclick="check(\'' + row.inviteId + '\')"><i class="fa fa-edit"></i>审核</a>');
+                        return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+        //审核
+        function check(id) {
+            var url =  ctx + "cms/invite/check/" + id;
+            $.modal.open("审核招聘", url);
+        }
+        //查看详情
+        function show(id) {
+            var url =  ctx + "cms/invite/show/" + id;
+            $.modal.open("查看招聘详情", url);
+            // layer.open("查看招聘详情", url);
+        }
+    </script>
+</body>
+</html>

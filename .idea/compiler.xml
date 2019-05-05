@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="csjlb-admin" />
+        <module name="csjlb-api" />
+        <module name="csjlb-cmsC" />
+        <module name="csjlb-cmsS" />
+        <module name="csjlb-common" />
+        <module name="csjlb-framework" />
+        <module name="csjlb-generator" />
+        <module name="csjlb-quartz" />
+        <module name="csjlb-system" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="csjlb" target="1.8" />
+      <module name="csjlb-admin" target="1.8" />
+      <module name="csjlb-api" target="1.8" />
+      <module name="csjlb-cmsC" target="1.8" />
+      <module name="csjlb-cmsS" target="1.8" />
+      <module name="csjlb-common" target="1.8" />
+      <module name="csjlb-framework" target="1.8" />
+      <module name="csjlb-generator" target="1.8" />
+      <module name="csjlb-quartz" target="1.8" />
+      <module name="csjlb-system" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

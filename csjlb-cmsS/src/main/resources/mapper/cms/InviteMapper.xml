@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csjlb.cms.mapper.InviteMapper">
+    
+    <resultMap type="Invite" id="InviteResult">
+        <result property="inviteId"    column="inviteId"    />
+        <result property="inviteType"    column="inviteType"    />
+        <result property="jobName"    column="jobName"    />
+        <result property="jobIntroduce"    column="jobIntroduce"    />
+        <result property="inviteIntroduce"    column="inviteIntroduce"    />
+        <result property="contactWay"    column="contactWay"    />
+        <result property="areaId"    column="areaId"    />
+        <result property="publishUserId"    column="publishUserId"    />
+        <result property="publishUserName"    column="publishUserName"    />
+        <result property="publishTime"    column="publishTime"    />
+        <result property="checkUserId"    column="checkUserId"    />
+        <result property="checkUserName"    column="checkUserName"    />
+        <result property="checkTime"    column="checkTime"    />
+        <result property="checkResult"    column="checkResult"    />
+        <result property="checkMessage"    column="checkMessage"    />
+        <result property="isShow"    column="isShow"    />
+        <result property="browseCount"    column="browseCount"    />
+        <result property="other1"    column="other1"    />
+        <result property="other2"    column="other2"    />
+        <result property="other3"    column="other3"    />
+        <result property="other4"    column="other4"    />
+        <result property="other5"    column="other5"    />
+    </resultMap>
+	
+	<sql id="selectInviteVo">
+        select inviteId, inviteType, jobName, jobIntroduce, inviteIntroduce, contactWay, areaId, publishUserId, publishUserName, publishTime, checkUserId, checkUserName, checkTime, checkResult, checkMessage, isShow, browseCount, other1, other2, other3, other4, other5 from t_cs_invite
+    </sql>
+	
+    <select id="selectInviteList" parameterType="Invite" resultMap="InviteResult">
+        <include refid="selectInviteVo"/>
+        <where>  
+            <if test="inviteId != null "> and inviteId = #{inviteId}</if>
+             <if test="inviteType != null "> and inviteType = #{inviteType}</if>
+             <if test="jobName != null  and jobName != '' "> and jobName = #{jobName}</if>
+             <if test="jobIntroduce != null  and jobIntroduce != '' "> and jobIntroduce = #{jobIntroduce}</if>
+             <if test="inviteIntroduce != null  and inviteIntroduce != '' "> and inviteIntroduce = #{inviteIntroduce}</if>
+             <if test="contactWay != null  and contactWay != '' "> and contactWay = #{contactWay}</if>
+             <if test="areaId != null "> and areaId = #{areaId}</if>
+             <if test="publishUserId != null "> and publishUserId = #{publishUserId}</if>
+             <if test="publishUserName != null  and publishUserName != '' "> and publishUserName = #{publishUserName}</if>
+             <if test="publishTime != null "> and publishTime = #{publishTime}</if>
+             <if test="checkUserId != null "> and checkUserId = #{checkUserId}</if>
+             <if test="checkUserName != null  and checkUserName != '' "> and checkUserName = #{checkUserName}</if>
+             <if test="checkTime != null "> and checkTime = #{checkTime}</if>
+             <if test="checkResult != null "> and checkResult = #{checkResult}</if>
+             <if test="checkMessage != null  and checkMessage != '' "> and checkMessage = #{checkMessage}</if>
+             <if test="isShow != null "> and isShow = #{isShow}</if>
+             <if test="browseCount != null "> and browseCount = #{browseCount}</if>
+             <if test="other1 != null  and other1 != '' "> and other1 = #{other1}</if>
+             <if test="other2 != null  and other2 != '' "> and other2 = #{other2}</if>
+             <if test="other3 != null  and other3 != '' "> and other3 = #{other3}</if>
+             <if test="other4 != null  and other4 != '' "> and other4 = #{other4}</if>
+             <if test="other5 != null  and other5 != '' "> and other5 = #{other5}</if>
+         </where>
+    </select>
+    
+    <select id="selectInviteById" parameterType="Long" resultMap="InviteResult">
+        <include refid="selectInviteVo"/>
+        where inviteId = #{inviteId}
+    </select>
+        
+    <insert id="insertInvite" parameterType="Invite" useGeneratedKeys="true" keyProperty="inviteId">
+        insert into t_cs_invite
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="inviteType != null  ">inviteType,</if>
+			<if test="jobName != null  and jobName != ''  ">jobName,</if>
+			<if test="jobIntroduce != null  and jobIntroduce != ''  ">jobIntroduce,</if>
+			<if test="inviteIntroduce != null  and inviteIntroduce != ''  ">inviteIntroduce,</if>
+			<if test="contactWay != null  and contactWay != ''  ">contactWay,</if>
+			<if test="areaId != null  ">areaId,</if>
+			<if test="publishUserId != null  ">publishUserId,</if>
+			<if test="publishUserName != null  and publishUserName != ''  ">publishUserName,</if>
+			<if test="publishTime != null  ">publishTime,</if>
+			<if test="checkUserId != null  ">checkUserId,</if>
+			<if test="checkUserName != null  and checkUserName != ''  ">checkUserName,</if>
+			<if test="checkTime != null  ">checkTime,</if>
+			<if test="checkResult != null  ">checkResult,</if>
+			<if test="checkMessage != null  and checkMessage != ''  ">checkMessage,</if>
+			<if test="isShow != null  ">isShow,</if>
+			<if test="browseCount != null  ">browseCount,</if>
+			<if test="other1 != null  and other1 != ''  ">other1,</if>
+			<if test="other2 != null  and other2 != ''  ">other2,</if>
+			<if test="other3 != null  and other3 != ''  ">other3,</if>
+			<if test="other4 != null  and other4 != ''  ">other4,</if>
+			<if test="other5 != null  and other5 != ''  ">other5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="inviteType != null  ">#{inviteType},</if>
+			<if test="jobName != null  and jobName != ''  ">#{jobName},</if>
+			<if test="jobIntroduce != null  and jobIntroduce != ''  ">#{jobIntroduce},</if>
+			<if test="inviteIntroduce != null  and inviteIntroduce != ''  ">#{inviteIntroduce},</if>
+			<if test="contactWay != null  and contactWay != ''  ">#{contactWay},</if>
+			<if test="areaId != null  ">#{areaId},</if>
+			<if test="publishUserId != null  ">#{publishUserId},</if>
+			<if test="publishUserName != null  and publishUserName != ''  ">#{publishUserName},</if>
+			<if test="publishTime != null  ">#{publishTime},</if>
+			<if test="checkUserId != null  ">#{checkUserId},</if>
+			<if test="checkUserName != null  and checkUserName != ''  ">#{checkUserName},</if>
+			<if test="checkTime != null  ">#{checkTime},</if>
+			<if test="checkResult != null  ">#{checkResult},</if>
+			<if test="checkMessage != null  and checkMessage != ''  ">#{checkMessage},</if>
+			<if test="isShow != null  ">#{isShow},</if>
+			<if test="browseCount != null  ">#{browseCount},</if>
+			<if test="other1 != null  and other1 != ''  ">#{other1},</if>
+			<if test="other2 != null  and other2 != ''  ">#{other2},</if>
+			<if test="other3 != null  and other3 != ''  ">#{other3},</if>
+			<if test="other4 != null  and other4 != ''  ">#{other4},</if>
+			<if test="other5 != null  and other5 != ''  ">#{other5},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateInvite" parameterType="Invite">
+        update t_cs_invite
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inviteType != null  ">inviteType = #{inviteType},</if>
+            <if test="jobName != null  and jobName != ''  ">jobName = #{jobName},</if>
+            <if test="jobIntroduce != null  and jobIntroduce != ''  ">jobIntroduce = #{jobIntroduce},</if>
+            <if test="inviteIntroduce != null  and inviteIntroduce != ''  ">inviteIntroduce = #{inviteIntroduce},</if>
+            <if test="contactWay != null  and contactWay != ''  ">contactWay = #{contactWay},</if>
+            <if test="areaId != null  ">areaId = #{areaId},</if>
+            <if test="publishUserId != null  ">publishUserId = #{publishUserId},</if>
+            <if test="publishUserName != null  and publishUserName != ''  ">publishUserName = #{publishUserName},</if>
+            <if test="publishTime != null  ">publishTime = #{publishTime},</if>
+            <if test="checkUserId != null  ">checkUserId = #{checkUserId},</if>
+            <if test="checkUserName != null  and checkUserName != ''  ">checkUserName = #{checkUserName},</if>
+            <if test="checkTime != null  ">checkTime = #{checkTime},</if>
+            <if test="checkResult != null  ">checkResult = #{checkResult},</if>
+            <if test="checkMessage != null   ">checkMessage = #{checkMessage},</if>
+            <if test="isShow != null  ">isShow = #{isShow},</if>
+            <if test="browseCount != null  ">browseCount = #{browseCount},</if>
+            <if test="other1 != null  and other1 != ''  ">other1 = #{other1},</if>
+            <if test="other2 != null  and other2 != ''  ">other2 = #{other2},</if>
+            <if test="other3 != null  and other3 != ''  ">other3 = #{other3},</if>
+            <if test="other4 != null  and other4 != ''  ">other4 = #{other4},</if>
+            <if test="other5 != null  and other5 != ''  ">other5 = #{other5},</if>
+        </trim>
+        where inviteId = #{inviteId}
+    </update>
+
+	<delete id="deleteInviteById" parameterType="Long">
+        delete from t_cs_invite where inviteId = #{inviteId}
+    </delete>
+	
+    <delete id="deleteInviteByIds" parameterType="String">
+        delete from t_cs_invite where inviteId in 
+        <foreach item="inviteId" collection="array" open="(" separator="," close=")">
+            #{inviteId}
+        </foreach>
+    </delete>
+    
+</mapper>
